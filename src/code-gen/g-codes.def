@@ -1,0 +1,240 @@
+######################################################################
+#   G-code parser codes definition file
+#   SPDX-License-Identifier: MIT
+#   Copyright © 2021 Gratian Crisan. All Rights Reserved.
+#
+# * The order in this file establishes the order of execution:
+#   within a G-code line, commands appearing towards the beginning of
+#   this file are executed before commands appearing later in the file.
+#
+# * Commands are delimited by '(  )'
+#
+# * Commands with the same execution priority are groupped by '{  }'
+#
+# * Lines starting with '#' denote comments and are ignored.
+#
+# * C-style comments '/* ... */' are copied directly into the output.
+######################################################################
+
+/*
+  O-word commands, i.e. subroutine, rank = 0, modal = 0
+*/
+{
+}
+
+/*
+  Comment including message, rank = 1, modal = 0
+*/
+{
+}
+
+{
+	/* Modal group 5: feed rate mode */
+	(G93, modal = 5)
+	(G94, modal = 5)
+	(G95, modal = 5)
+
+	/* Modal group 14: spindle speed mode */
+	(G96, modal = 14)
+	(G97, modal = 14)
+}
+
+/* Set feed rate */
+{
+	(F0, modal = 0)
+}
+
+/* Set spindle speed */
+{
+	(S0, modal = 0)
+}
+
+/* Select tool */
+{
+	(T0, modal = 0)
+}
+
+/* Non modal group 0: HAL pin I/O */
+{
+	(M62, modal = 0)
+	(M63, modal = 0)
+	(M64, modal = 0)
+	(M65, modal = 0)
+	(M66, modal = 0)
+	(M67, modal = 0)
+	(M68, modal = 0)
+}
+
+/* Non-modal group 0, tool change */
+{
+	/* Change tool */
+	(M6, modal = 0)
+
+	/* Set tool number */
+	(M61, modal = 0)
+}
+
+/* Modal group 7: spindle on/off */
+{
+	(M3, modal = 7)
+	(M4, modal = 7)
+	(M5, modal = 7)
+}
+
+/* Non-modal group 0, state manipulation */
+{
+	/* Save state */
+	(M70, modal = 0)
+	(M73, modal = 0)
+
+	/* Restore state */
+	(M72, modal = 0)
+
+	/* Invalidate state */
+	(M71, modal = 0)
+}
+
+/* Modal group 8: coolant on/off; M7 and M8 can both be on */
+{
+	(M7, modal = 8)
+	(M8, modal = 8)
+	(M9, modal = 8)
+}
+
+/* Modal group 9: override switches */
+{
+	(M48, modal = 9)
+	(M49, modal = 9)
+	(M50, modal = 9)
+	(M51, modal = 9)
+	(M52, modal = 9)
+	(M53, modal = 9)
+}
+
+{
+/*
+ * Modal group 10: M100-M199 user defined commands
+ * @todo: handle this programmatically
+ * (M100, modal = 10)
+*/
+}
+
+/* Non-modal group 0 */
+{
+	(G4, modal = 0)
+}
+
+/* Modal group 2: plane selection */
+{
+	(G17, modal = 2)
+	(G17.1, modal = 2)
+	(G18, modal = 2)
+	(G18.1, modal = 2)
+	(G19, modal = 2)
+	(G19.1, modal = 2)
+}
+
+/* Modal group 6: units */
+{
+	(G20, modal = 6)
+	(G21, modal = 6)
+}
+
+/* Modal group 7: cutter diameter compensation */
+{
+	(G40, modal = 7)
+	(G41, modal = 7)
+	(G41.1, modal = 7)
+	(G42, modal = 7)
+	(G42.1, modal = 7)
+}
+
+/* Modal group 8: tool length offset */
+{
+	(G43, modal = 8)
+	(G43.1, modal = 8)
+	(G49, modal = 8)
+}
+
+/* Modal group 12: coordinate system */
+{
+	(G54, modal = 12)
+	(G55, modal = 12)
+	(G56, modal = 12)
+	(G57, modal = 12)
+	(G58, modal = 12)
+	(G59, modal = 12)
+	(G59.1, modal = 12)
+	(G59.2, modal = 12)
+	(G59.3, modal = 12)
+}
+
+/* Modal group 13: control mode */
+{
+	(G61, modal = 13)
+	(G61.1, modal = 13)
+	(G64, modal = 13)
+}
+
+{
+	/* Modal group 3: distance mode */
+	(G90, modal = 3)
+	(G91, modal = 3)
+
+	/* Modal group 15: lathe diameter mode */
+	(G7, modal = 15)
+	(G8, modal = 15)
+
+	/* Modal group 4: arc IJK distance mode */
+	(G90.1, modal = 4)
+	(G91.1, modal = 4)
+}
+
+/* Modal group 10: canned cycles return mode */
+{
+	(G98, modal = 10)
+	(G99, modal = 10)
+}
+
+/* Non-modal group 0 */
+{
+	(G10, modal = 0)
+	(G28, modal = 0)
+	(G30, modal = 0)
+	(G53, modal = 0)
+	(G92, modal = 0)
+	(G92.1, modal = 0)
+	(G92.2, modal = 0)
+	(G92.3, modal = 0)
+}
+
+/* Modal group 1: motion */
+{
+	(G0, modal = 1)
+	(G1, modal = 1)
+	(G2, modal = 1)
+	(G3, modal = 1)
+	(G33, modal = 1)
+	(G38.2, modal = 1)
+	(G73, modal = 1)
+	(G76, modal = 1)
+	(G80, modal = 1)
+	(G81, modal = 1)
+	(G82, modal = 1)
+	(G83, modal = 1)
+	(G84, modal = 1)
+	(G85, modal = 1)
+	(G86, modal = 1)
+	(G87, modal = 1)
+	(G88, modal = 1)
+	(G89, modal = 1)
+}
+
+/* Modal group 4: stopping */
+{
+	(M0, modal = 4)
+	(M1, modal = 4)
+	(M2, modal = 4)
+	(M30, modal = 4)
+	(M60, modal = 4)
+}
